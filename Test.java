@@ -1,6 +1,7 @@
 package bai1;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -10,18 +11,23 @@ public class Test {
         Product product2 = new Product("Gạo", "sp1", 18000);
         Product priduct3 = new Product("Đường", "sp3", 10000);
         Product product4 = new Product("Gạo", "sp1", 18000);
+        Product product5 = new Product("Muối", "sp5", 10000);
+        Product product6 = new Product("Bột ngọt", "sp6" , 5000);
 
-        Order order = new Order(1, LocalDate.of(2015, 9, 10));
+        Order order = new Order(1, LocalDate.of(2023, 5, 15));
         
         order.addLineItems(product1, 10);
         order.addLineItems(product2, 5);
         order.addLineItems(priduct3, 1);
         order.addLineItems(product4, 1);
-
+        order.addLineItems(product5, 2);
+        order.addLineItems(product6, 1);
         
         System.out.println("Mã hóa đơn: " + order.getOrderID());
-        System.out.println("Ngày lập hóa đơn: " + order.getOrderDate());
-        System.out.println("STT       |  Mã Sp   |   Mô tả               |     Đơn giá     |     Số lượng    |    Thành tiền");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = order.getOrderDate().format(dateFormatter);
+        System.out.println("Ngày lập hóa đơn: " + formattedDate);
+        System.out.println("STT       |  Mã Sp   |         Mô tả         |     Đơn giá     |     Số lượng    |    Thành tiền");
 
         DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
         List<OrderDetail> lineItems = order.getLineItems();
@@ -40,3 +46,4 @@ public class Test {
         System.out.println("Tổng tiền thanh toán: " + decimalFormat.format(order.calcTotalCharge(0)));
     }
 }
+
